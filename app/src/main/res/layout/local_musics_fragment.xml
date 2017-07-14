@@ -1,0 +1,45 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.android.lvxin.musicplayer.musics.MusicsFragment">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.android.lvxin.musicplayer.musics.MusicsViewModel" />
+
+        <variable
+            name="view"
+            type="com.android.lvxin.musicplayer.musics.MusicsFragment" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/musics_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{viewModel.empty ? View.GONE : View.VISIBLE}"
+            app:items="@{viewModel.items}" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{viewModel.empty ? View.VISIBLE : View.GONE}">
+
+            <TextView
+                android:id="@+id/txt_no_tasks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="no local musics" />
+        </LinearLayout>
+    </FrameLayout>
+</layout>

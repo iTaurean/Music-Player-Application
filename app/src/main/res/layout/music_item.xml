@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.android.lvxin.musicplayer.musics.MusicItemViewModel"/>
+
+        <variable
+            name="obj"
+            type="com.android.lvxin.musicplayer.data.MusicModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> viewModel.musicClicked()}"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/music_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{obj.musicName}"/>
+
+        <TextView
+            android:id="@+id/artist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{obj.artist}"/>
+    </LinearLayout>
+</layout>
