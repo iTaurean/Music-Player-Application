@@ -23,4 +23,12 @@
 
     <dimen name="fab_margin">16dp</dimen>
 
+
+    <dimen name="toolbar_imageview_width">51dp</dimen>
+    <dimen name="toolbar_imageview_height">51dp</dimen>
+
+    <dimen name="toolbar_height">51dp</dimen>
+    <dimen name="toolbar_padding_top">0dp</dimen>
+
+
 </resources>

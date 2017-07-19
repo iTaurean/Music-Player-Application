@@ -6,15 +6,15 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 
+import com.android.lvxin.musicplayer.BaseToolBarActivity;
 import com.android.lvxin.musicplayer.R;
 import com.android.lvxin.musicplayer.data.source.MusicsRepository;
-import com.android.lvxin.musicplayer.musicdetail.MusicDetailActivity;
+import com.android.lvxin.musicplayer.player.MusicPlayingActivity;
 import com.android.lvxin.musicplayer.util.ActivityUtils;
 import com.android.lvxin.musicplayer.util.ViewModelHolder;
 
-public class MusicsActivity extends AppCompatActivity implements MusicItemNavigation {
+public class MusicsActivity extends BaseToolBarActivity implements MusicItemNavigation {
 
     private static final String LOCAL_MUSICS_VIEW_MODEL_TAG = "local_musics_view_model_tag";
     private static final int REQULT_CONTACTS = 1;
@@ -30,6 +30,7 @@ public class MusicsActivity extends AppCompatActivity implements MusicItemNaviga
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_local_musics);
+        addDefaultCustomView();
         getPermission();
     }
 
@@ -109,7 +110,7 @@ public class MusicsActivity extends AppCompatActivity implements MusicItemNaviga
     }
 
     @Override
-    public void openMusicDetail(long musicId) {
-        MusicDetailActivity.start(this, musicId);
+    public void openMusicPlayPage() {
+        MusicPlayingActivity.start(this, mViewModel.getData());
     }
 }

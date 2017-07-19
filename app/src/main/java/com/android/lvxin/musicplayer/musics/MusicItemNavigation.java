@@ -8,5 +8,5 @@ package com.android.lvxin.musicplayer.musics;
  */
 interface MusicItemNavigation {
 
-    void openMusicDetail(long musicId);
+    void openMusicPlayPage();
 }

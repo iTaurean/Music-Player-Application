@@ -3,4 +3,12 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="trans_white_26">#42ffffff</color> <!-- 26% trans -->
+    <color name="trans_black_40">#66000000</color> <!-- 40% trans -->
+    <color name="trans_white_80">#CCffffff</color> <!-- 80% trans -->
+
+    <color name="theme_text_black">#111111</color> <!-- 默认的字体颜色 -->
+
+    <color name="theme_boudary_color">#d9e3f8</color> <!-- 分界线颜色 -->
 </resources>

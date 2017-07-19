@@ -14,6 +14,7 @@ import com.android.lvxin.musicplayer.data.source.MusicsDataSource;
 import com.android.lvxin.musicplayer.data.source.MusicsRepository;
 import com.android.lvxin.musicplayer.util.ThreadManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,6 +39,8 @@ public class MusicsViewModel extends BaseObservable {
 
     private MusicsRepository mMusicsRepository;
 
+    private List<MusicModel> mData = new ArrayList<>();
+
     public MusicsViewModel(Context context, MusicsRepository repository) {
         this.context = context.getApplicationContext();
         this.mMusicsRepository = repository;
@@ -49,6 +52,10 @@ public class MusicsViewModel extends BaseObservable {
 
     void onActivityDestroyed() {
         mNavigation = null;
+    }
+
+    public List<MusicModel> getData() {
+        return mData;
     }
 
     @Bindable
@@ -67,7 +74,11 @@ public class MusicsViewModel extends BaseObservable {
                 mMusicsRepository.getMusics(new MusicsDataSource.LoadMusicsCallback() {
                     @Override
                     public void onTasksLoaded(List<MusicModel> musics) {
-
+                        if (null == mData) {
+                            mData = new ArrayList<MusicModel>();
+                        }
+                        mData.clear();
+                        mData.addAll(musics);
                         mIsDataLoadingError.set(false);
                         items.clear();
                         items.addAll(musics);

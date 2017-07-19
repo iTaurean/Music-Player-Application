@@ -5,6 +5,15 @@
 
     <string name="settings_title">settings</string>
 
+
+    <string name="music_play_random">随机播放</string>
+    <string name="music_play_repeat_all">顺序播放</string>
+    <string name="music_play_repeat_one">单曲循环</string>
+
+    <string name="cancel">取消</string>
+
+    <string name="network_not_available">网络异常,请检查手机网络</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

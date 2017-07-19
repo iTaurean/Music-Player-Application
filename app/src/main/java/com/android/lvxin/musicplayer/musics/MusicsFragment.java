@@ -16,6 +16,7 @@ import com.android.lvxin.musicplayer.databinding.LocalMusicsFragmentBinding;
 public class MusicsFragment extends Fragment {
 
     private LocalMusicsFragmentBinding mFragmentBinding;
+
     private MusicsViewModel mViewModel;
 
     private MusicsAdapter mAdapter;

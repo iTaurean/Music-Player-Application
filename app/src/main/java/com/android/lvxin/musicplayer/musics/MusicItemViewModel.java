@@ -87,11 +87,8 @@ public class MusicItemViewModel extends BaseObservable implements MusicsDataSour
     }
 
     public void musicClicked() {
-        long musicId = getMusicId();
-        if (-1 != musicId) {
-            if (null != mNavigation && null != mNavigation.get()) {
-                mNavigation.get().openMusicDetail(musicId);
-            }
+        if (null != mNavigation && null != mNavigation.get()) {
+            mNavigation.get().openMusicPlayPage();
         }
     }
 }

@@ -22,6 +22,15 @@
         </activity>
         <activity android:name=".musicdetail.MusicDetailActivity">
         </activity>
+
+        <service
+            android:name=".service.MusicService"
+            android:enabled="true"
+            android:exported="true">
+        </service>
+
+        <activity android:name=".player.MusicPlayingActivity">
+        </activity>
     </application>
 
 </manifest>

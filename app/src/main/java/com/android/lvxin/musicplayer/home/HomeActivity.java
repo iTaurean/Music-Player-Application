@@ -5,17 +5,16 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.android.lvxin.musicplayer.BaseToolBarActivity;
 import com.android.lvxin.musicplayer.R;
 import com.android.lvxin.musicplayer.musics.MusicsActivity;
 import com.android.lvxin.musicplayer.util.ActivityUtils;
 import com.android.lvxin.musicplayer.util.ViewModelHolder;
 
-public class HomeActivity extends AppCompatActivity implements HomeNavigator {
+public class HomeActivity extends BaseToolBarActivity implements HomeNavigator {
 
     private static final String HOME_VIEW_MODEL_TAG = "home_view_model_tag";
     HomeViewModel homeViewModel;
@@ -38,11 +37,10 @@ public class HomeActivity extends AppCompatActivity implements HomeNavigator {
     }
 
     private void setupToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar ab = getSupportActionBar();
-        ab.setHomeAsUpIndicator(R.drawable.ic_menu);
-        ab.setDisplayHomeAsUpEnabled(true);
+        addDefaultCustomView();
+        mBackBtn.setVisibility(View.GONE);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void setupNavigationDrawer() {
@@ -113,5 +111,16 @@ public class HomeActivity extends AppCompatActivity implements HomeNavigator {
     protected void onDestroy() {
         homeViewModel.onActivityDestroyed();
         super.onDestroy();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.left_iv:
+
+                break;
+            default:
+                break;
+        }
     }
 }
