@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 
+import com.android.lvxin.musicplayer.BR;
 import com.android.lvxin.musicplayer.BaseToolBarActivity;
 import com.android.lvxin.musicplayer.R;
 import com.android.lvxin.musicplayer.data.MusicModel;
@@ -16,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MusicPlayingActivity extends BaseToolBarActivity implements MusicPlayingNavigation {
+
+    private static final String TAG = "MusicPlayingActivity";
 
     private static final String MUSIC_PLAYING_TAG = "music_playing_tag";
 
@@ -78,5 +82,12 @@ public class MusicPlayingActivity extends BaseToolBarActivity implements MusicPl
     @Override
     public void onPrevMusic() {
         MusicPlayer.prev();
+    }
+
+    @Override
+    public void onPrepared() {
+        super.onPrepared();
+        Log.d(TAG, "onPrepared: ");
+        mViewModel.notifyPropertyChanged(BR.playing);
     }
 }

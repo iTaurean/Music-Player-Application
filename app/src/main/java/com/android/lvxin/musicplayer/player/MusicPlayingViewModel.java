@@ -1,13 +1,15 @@
 package com.android.lvxin.musicplayer.player;
 
 import android.content.Context;
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 
+import com.android.lvxin.musicplayer.BR;
 import com.android.lvxin.musicplayer.data.MusicModel;
 import com.android.lvxin.musicplayer.service.IMusicAidlInterface;
 import com.android.lvxin.musicplayer.service.MusicPlayer;
 
 import java.util.List;
-import java.util.Observable;
 
 /**
  * @ClassName: MusicPlayingViewModel
@@ -15,7 +17,7 @@ import java.util.Observable;
  * @Author: lvxin
  * @Date: 2017/7/18 16:29
  */
-public class MusicPlayingViewModel extends Observable {
+public class MusicPlayingViewModel extends BaseObservable {
 
     private Context context;
 
@@ -39,6 +41,12 @@ public class MusicPlayingViewModel extends Observable {
         MusicPlayer.setPlayList(playList);
     }
 
+
+    @Bindable
+    public boolean isPlaying() {
+        return MusicPlayer.isPlaying();
+    }
+
     public void onNextMusic() {
         if (null != mNavigation) {
             mNavigation.onNextMusic();
@@ -49,6 +57,18 @@ public class MusicPlayingViewModel extends Observable {
         if (null != mNavigation) {
             mNavigation.onPrevMusic();
         }
+    }
+
+    /**
+     * 播放暂停
+     */
+    public void onPlayPauseMusic() {
+        if (MusicPlayer.isPlaying()) {
+            MusicPlayer.pause();
+        } else {
+            MusicPlayer.resume();
+        }
+        notifyPropertyChanged(BR.playing);
     }
 
 

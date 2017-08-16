@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.android.lvxin.musicplayer.player.MusicPlayingViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/layout_play_mode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/imageview_selector"
+            android:clipToPadding="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_play_mode"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:scaleType="center"
+                android:src="@mipmap/ic_play_mode_repeat_all" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_prev"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/imageview_selector"
+            android:clipToPadding="true"
+            android:onClick="@{() -> viewModel.onPrevMusic()}"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_prev"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:scaleType="center"
+                android:src="@mipmap/ic_prev" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_play_control"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/imageview_selector"
+            android:clipToPadding="true"
+            android:onClick="@{() -> viewModel.onPlayPauseMusic()}"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:scaleType="center"
+                android:src="@{viewModel.playing ? @drawable/ic_pause : @drawable/ic_play}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_next"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/imageview_selector"
+            android:clipToPadding="true"
+            android:onClick="@{() -> viewModel.onNextMusic()}"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_next"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:background="@drawable/imageview_selector"
+                android:scaleType="center"
+                android:src="@mipmap/ic_next" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_love"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@drawable/imageview_selector"
+            android:clipToPadding="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_love"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:scaleType="center"
+                android:src="@mipmap/ic_love_default" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

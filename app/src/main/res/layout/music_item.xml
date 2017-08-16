@@ -1,33 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.android.lvxin.musicplayer.musics.MusicItemViewModel"/>
+            type="com.android.lvxin.musicplayer.musics.MusicItemViewModel" />
 
         <variable
             name="obj"
-            type="com.android.lvxin.musicplayer.data.MusicModel"/>
+            type="com.android.lvxin.musicplayer.data.MusicModel" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="@{() -> viewModel.musicClicked()}"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/music_name"
+            android:id="@+id/item_song_index"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{obj.musicName}"/>
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="0"
+            android:text="1" />
 
-        <TextView
-            android:id="@+id/artist"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:src="@{obj.albumId}" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{obj.artist}"/>
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:id="@+id/music_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@{obj.musicName}"
+                    android:textColor="@color/text_color_111111"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/artist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@{obj.artist + ` - ` + obj.albumName}"
+                    android:textColor="@color/text_color_999999"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider_d8dfed" />
+        </LinearLayout>
     </LinearLayout>
+
+
 </layout>

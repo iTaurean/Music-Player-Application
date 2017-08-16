@@ -1,16 +1,17 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:context="com.android.lvxin.musicplayer.player.MusicPlayingFragment">
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.android.lvxin.musicplayer.player.MusicPlayingFragment">
 
     <data>
 
         <variable
             name="view"
-            type="com.android.lvxin.musicplayer.player.MusicPlayingFragment"/>
+            type="com.android.lvxin.musicplayer.player.MusicPlayingFragment" />
 
         <variable
             name="viewModel"
-            type="com.android.lvxin.musicplayer.player.MusicPlayingViewModel"/>
+            type="com.android.lvxin.musicplayer.player.MusicPlayingViewModel" />
     </data>
 
     <LinearLayout
@@ -18,19 +19,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/next_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> viewModel.onNextMusic()}"
-            android:text="下一首"/>
+        <include
+            android:id="@+id/include_layout"
+            layout="@layout/include_layout"
+            bind:viewModel="@{viewModel}" />
 
-        <Button
-            android:id="@+id/prev_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> viewModel.onPrevMusic()}"
-            android:text="上一首"/>
 
     </LinearLayout>
 </layout>

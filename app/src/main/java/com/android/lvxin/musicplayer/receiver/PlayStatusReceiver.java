@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.util.Log;
 
 import com.android.lvxin.musicplayer.IConstants;
 import com.android.lvxin.musicplayer.service.MusicPlayCallback;
@@ -15,11 +16,13 @@ import com.android.lvxin.musicplayer.service.MusicPlayCallback;
  * @Date: 2017/7/18 15:22
  */
 public final class PlayStatusReceiver extends BroadcastReceiver {
+    private static final String TAG = "PlayStatusReceiver";
 
     private static PlayStatusReceiver INSTANCE;
+
     private MusicPlayCallback mCallback;
 
-    public PlayStatusReceiver() {
+    private PlayStatusReceiver() {
 
     }
 
@@ -54,6 +57,7 @@ public final class PlayStatusReceiver extends BroadcastReceiver {
             if (IConstants.BroadcastActions.ACTION_UPDATE_PLAY_MUSIC.equals(action)) {
                 mCallback.onUpdateMusicInfo();
             } else if (IConstants.BroadcastActions.ACTION_MUSIC_PREPARED.equals(action)) {
+                Log.d(TAG, "onReceive: >>>>");
                 mCallback.onPrepared();
             } else if (IConstants.BroadcastActions.ACTION_MUSIC_COMPLETION.equals(action)) {
                 mCallback.onCompletion();

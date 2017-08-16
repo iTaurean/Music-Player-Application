@@ -90,26 +90,18 @@ public class QueryLocalMusicHelper {
 
         MusicModel music = new MusicModel();
         while (cursor.moveToNext()) {
-            music.musicId = cursor.getInt(cursor
-                    .getColumnIndex(Media._ID));
-            music.albumId = cursor.getInt(cursor
-                    .getColumnIndex(Media.ALBUM_ID));
-            music.albumName = cursor.getString(cursor
-                    .getColumnIndex(MediaStore.Audio.Albums.ALBUM));
+            music.musicId = cursor.getInt(cursor.getColumnIndex(Media._ID));
+            music.albumId = cursor.getInt(cursor.getColumnIndex(Media.ALBUM_ID));
+            music.albumName = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Albums.ALBUM));
             music.albumData = getAlbumArtUri(music.albumId) + "";
-            music.duration = cursor.getInt(cursor
-                    .getColumnIndex(Media.DURATION));
-            music.musicName = cursor.getString(cursor
-                    .getColumnIndex(Media.TITLE));
+            music.duration = cursor.getInt(cursor.getColumnIndex(Media.DURATION));
+            music.musicName = cursor.getString(cursor.getColumnIndex(Media.TITLE));
             music.size = cursor.getInt(cursor.getColumnIndex(Media.SIZE));
-            music.artist = cursor.getString(cursor
-                    .getColumnIndex(Media.ARTIST));
+            music.artist = cursor.getString(cursor.getColumnIndex(Media.ARTIST));
             music.artistId = cursor.getLong(cursor.getColumnIndex(Media.ARTIST_ID));
-            String filePath = cursor.getString(cursor
-                    .getColumnIndex(Media.DATA));
+            String filePath = cursor.getString(cursor.getColumnIndex(Media.DATA));
             music.data = filePath;
-            String folderPath = filePath.substring(0,
-                    filePath.lastIndexOf(File.separator));
+            String folderPath = filePath.substring(0, filePath.lastIndexOf(File.separator));
             music.folder = folderPath;
             music.sort = Pinyin.toPinyin(music.musicName.charAt(0)).substring(0, 1).toUpperCase();
         }

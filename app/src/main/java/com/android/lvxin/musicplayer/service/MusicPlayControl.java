@@ -218,6 +218,7 @@ public class MusicPlayControl implements MediaPlayer.OnPreparedListener, MediaPl
         if (null == mPlayList) {
             return;
         }
+        // TODO: 2017/8/15 check 有缺陷
         for (int i = 0; i < mPlayList.size(); i++) {
             if (music.equals(mPlayList.get(i))) {
                 mCache.setPausePosition(0);
@@ -607,6 +608,8 @@ public class MusicPlayControl implements MediaPlayer.OnPreparedListener, MediaPl
             mMediaPlayer.start();
             setPlayStatus(true);
         }
+        Log.d(TAG, "onPrepared: >>>>");
+        sendBroadcast(IConstants.BroadcastActions.ACTION_MUSIC_PREPARED);
     }
 
     @Override

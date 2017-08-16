@@ -11,4 +11,10 @@
     <color name="theme_text_black">#111111</color> <!-- 默认的字体颜色 -->
 
     <color name="theme_boudary_color">#d9e3f8</color> <!-- 分界线颜色 -->
+
+    <color name="divider_d8dfed">#d8dfed</color>
+    <color name="text_color_111111">#111111</color>
+    <color name="text_color_999999">#999999</color>
+    <color name="color_f2f2f2">#f2f2f2</color>
+    <color name="color_ff666666">#ff666666</color>
 </resources>

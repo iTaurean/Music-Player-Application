@@ -55,8 +55,9 @@ public class BaseToolBarActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         ActivityStack.getIns().push(this);
         MusicPlayer.bindService(this, this);
-        mPlayStatusReceiver = new PlayStatusReceiver();
+        mPlayStatusReceiver = PlayStatusReceiver.getInstance();
         mPlayStatusReceiver.setPlayStatusCallback(this);
+        registerReceiver(mPlayStatusReceiver, PlayStatusReceiver.getIntentFilter());
 
         if (!isCollapsingToolbar) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
