@@ -1,0 +1,91 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.android.lvxin.musicplayer.player.MusicPlayingInfoFragment">
+
+    <data>
+
+        <variable
+            name="view"
+            type="com.android.lvxin.musicplayer.player.MusicPlayingInfoFragment" />
+
+        <variable
+            name="viewModel"
+            type="com.android.lvxin.musicplayer.player.MusicPlayingInfoViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <ImageView
+                android:id="@+id/album_cover_shadow"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_play_disc_shadow"
+                android:visibility="visible" />
+
+            <FrameLayout
+                android:id="@+id/album_cover"
+                android:layout_width="230dp"
+                android:layout_height="230dp"
+                android:layout_gravity="center_horizontal">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/ic_play_disc"
+                    android:visibility="visible" />
+                <!--
+                                <com.facebook.drawee.view.SimpleDraweeView
+                                    android:id="@+id/sdv"
+                                    android:layout_width="132dp"
+                                    android:layout_height="132dp"
+                                    android:layout_gravity="center"
+                                    fresco:placeholderImage="@mipmap/ic_placeholder_disk_play_song"
+                                    android:visibility="visible" />
+                                    -->
+            </FrameLayout>
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/music_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/music_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{viewModel.music.get().musicName}"
+                android:textColor="@color/text_color_111111"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/singer_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{viewModel.music.get().artist}"
+                android:textColor="@color/text_color_999999"
+                android:textSize="11sp" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

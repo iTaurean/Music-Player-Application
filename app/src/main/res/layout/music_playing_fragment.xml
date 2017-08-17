@@ -1,5 +1,5 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.android.lvxin.musicplayer.player.MusicPlayingFragment">
 
@@ -19,11 +19,20 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_music_info"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:viewPagerContents="@{view}" />
+
         <include
-            android:id="@+id/include_layout"
-            layout="@layout/include_layout"
-            bind:viewModel="@{viewModel}" />
-
-
+            android:id="@+id/layout_music_control"
+            layout="@layout/layout_music_control"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            app:viewModel="@{viewModel}" />
     </LinearLayout>
 </layout>

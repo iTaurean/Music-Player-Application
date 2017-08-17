@@ -4,10 +4,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.util.Log;
 
 import com.android.lvxin.musicplayer.IConstants;
 import com.android.lvxin.musicplayer.service.MusicPlayCallback;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * @ClassName: PlayStatusReceiver
@@ -15,14 +18,15 @@ import com.android.lvxin.musicplayer.service.MusicPlayCallback;
  * @Author: lvxin
  * @Date: 2017/7/18 15:22
  */
+@Deprecated
 public final class PlayStatusReceiver extends BroadcastReceiver {
+    public static final Set<MusicPlayCallback> CALLBACKS = new HashSet<>();
     private static final String TAG = "PlayStatusReceiver";
-
     private static PlayStatusReceiver INSTANCE;
 
     private MusicPlayCallback mCallback;
 
-    private PlayStatusReceiver() {
+    public PlayStatusReceiver() {
 
     }
 
@@ -46,28 +50,45 @@ public final class PlayStatusReceiver extends BroadcastReceiver {
         return INSTANCE;
     }
 
-    public void setPlayStatusCallback(MusicPlayCallback callback) {
-        mCallback = callback;
-    }
-
     @Override
     public void onReceive(Context context, Intent intent) {
         final String action = intent.getAction();
-        if (null != mCallback) {
-            if (IConstants.BroadcastActions.ACTION_UPDATE_PLAY_MUSIC.equals(action)) {
-                mCallback.onUpdateMusicInfo();
-            } else if (IConstants.BroadcastActions.ACTION_MUSIC_PREPARED.equals(action)) {
-                Log.d(TAG, "onReceive: >>>>");
-                mCallback.onPrepared();
-            } else if (IConstants.BroadcastActions.ACTION_MUSIC_COMPLETION.equals(action)) {
-                mCallback.onCompletion();
-            } else if (IConstants.BroadcastActions.ACTION_MUSIC_ERROR.equals(action)) {
-                mCallback.onError();
-            } else if (IConstants.BroadcastActions.ACTION_UPDATE_MUSIC_PLAY_STATUS.equals(action)) {
-                boolean isPlaying = intent.getBooleanExtra(IConstants.BroadcastActions.EXTRA_MUSIC_PLAYING_STATUS, false);
-                mCallback.onUpdatePlayStatus(isPlaying);
-            } else if (IConstants.BroadcastActions.ACTION_UPDATE_PROGRESS.equals(action)) {
-                mCallback.onUpdateProgress();
+        if (IConstants.BroadcastActions.ACTION_UPDATE_PLAY_MUSIC.equals(action)) {
+            Iterator<MusicPlayCallback> it = CALLBACKS.iterator();
+            while (it.hasNext()) {
+                MusicPlayCallback callback = it.next();
+                callback.onUpdateMusicInfo();
+            }
+        } else if (IConstants.BroadcastActions.ACTION_MUSIC_PREPARED.equals(action)) {
+            Iterator<MusicPlayCallback> it = CALLBACKS.iterator();
+            while (it.hasNext()) {
+                MusicPlayCallback callback = it.next();
+                callback.onPrepared();
+            }
+        } else if (IConstants.BroadcastActions.ACTION_MUSIC_COMPLETION.equals(action)) {
+            Iterator<MusicPlayCallback> it = CALLBACKS.iterator();
+            while (it.hasNext()) {
+                MusicPlayCallback callback = it.next();
+                callback.onCompletion();
+            }
+        } else if (IConstants.BroadcastActions.ACTION_MUSIC_ERROR.equals(action)) {
+            Iterator<MusicPlayCallback> it = CALLBACKS.iterator();
+            while (it.hasNext()) {
+                MusicPlayCallback callback = it.next();
+                callback.onError();
+            }
+        } else if (IConstants.BroadcastActions.ACTION_UPDATE_MUSIC_PLAY_STATUS.equals(action)) {
+            boolean isPlaying = intent.getBooleanExtra(IConstants.BroadcastActions.EXTRA_MUSIC_PLAYING_STATUS, false);
+            Iterator<MusicPlayCallback> it = CALLBACKS.iterator();
+            while (it.hasNext()) {
+                MusicPlayCallback callback = it.next();
+                callback.onUpdatePlayStatus(isPlaying);
+            }
+        } else if (IConstants.BroadcastActions.ACTION_UPDATE_PROGRESS.equals(action)) {
+            Iterator<MusicPlayCallback> it = CALLBACKS.iterator();
+            while (it.hasNext()) {
+                MusicPlayCallback callback = it.next();
+                callback.onUpdateProgress();
             }
         }
     }

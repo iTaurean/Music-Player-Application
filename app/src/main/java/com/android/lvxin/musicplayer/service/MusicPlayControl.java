@@ -1,7 +1,6 @@
 package com.android.lvxin.musicplayer.service;
 
 import android.content.Context;
-import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Handler;
@@ -10,6 +9,12 @@ import android.util.Log;
 
 import com.android.lvxin.musicplayer.IConstants;
 import com.android.lvxin.musicplayer.data.MusicModel;
+import com.android.lvxin.musicplayer.event.MusicCompletedEvent;
+import com.android.lvxin.musicplayer.event.MusicErrorEvent;
+import com.android.lvxin.musicplayer.event.MusicPreparedEvent;
+import com.android.lvxin.musicplayer.event.UpdateMusicInfoEvent;
+import com.android.lvxin.musicplayer.event.UpdateMusicPlayStatusEvent;
+import com.android.lvxin.musicplayer.event.UpdateMusicProgressEvent;
 import com.android.lvxin.musicplayer.player.HiiMediaPlayer;
 import com.android.lvxin.musicplayer.player.MusicPlayCache;
 import com.android.lvxin.musicplayer.player.MusicPlayModeEnum;
@@ -54,7 +59,7 @@ public class MusicPlayControl implements MediaPlayer.OnPreparedListener, MediaPl
             if (mMediaPlayer.isPlaying()) {
                 mCache.setPausePosition(mMediaPlayer.getCurrentPosition());
                 mCache.setDuration(mMediaPlayer.getDuration());
-                sendBroadcast(IConstants.BroadcastActions.ACTION_UPDATE_PROGRESS);
+                new UpdateMusicProgressEvent().post();
             }
             mProgressHandler.postDelayed(this, PROGRESS_UPDATE_TIME);
         }
@@ -84,27 +89,6 @@ public class MusicPlayControl implements MediaPlayer.OnPreparedListener, MediaPl
         mMediaPlayer.setOnCompletionListener(this);
         mMediaPlayer.setOnErrorListener(this);
         mCache = new MusicPlayCache();
-    }
-
-    /**
-     * 发送广播
-     *
-     * @param action
-     */
-    private void sendBroadcast(String action) {
-        Intent intent = new Intent(action);
-        mContext.sendBroadcast(intent);
-    }
-
-    /**
-     * 发送广播
-     *
-     * @param action
-     */
-    private void sendBroadcast(String action, boolean isPlaying) {
-        Intent intent = new Intent(action);
-        intent.putExtra(IConstants.BroadcastActions.EXTRA_MUSIC_PLAYING_STATUS, isPlaying);
-        mContext.sendBroadcast(intent);
     }
 
     /**
@@ -308,7 +292,7 @@ public class MusicPlayControl implements MediaPlayer.OnPreparedListener, MediaPl
         }
 
         if (startPlayMusic.getMusicId() == mCache.getPlayingMusicId()) {
-            sendBroadcast(IConstants.BroadcastActions.ACTION_UPDATE_PLAY_MUSIC);
+            new UpdateMusicInfoEvent().post();
         } else {
             if (null != mMediaPlayer) {
                 if (mMediaPlayer.isPlaying()) {
@@ -352,7 +336,7 @@ public class MusicPlayControl implements MediaPlayer.OnPreparedListener, MediaPl
             if (null != playingMusic) {
                 mCache.setPlayingMusicId(playingMusic.getMusicId());
                 Log.d(TAG, "start: playing music id=" + mCache.getPlayingMusic() + ", play index=" + currentPlayIndex);
-                sendBroadcast(IConstants.BroadcastActions.ACTION_UPDATE_PLAY_MUSIC);
+                new UpdateMusicInfoEvent().post();
 
                 mMediaPlayer.setupContentData(mContext, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI + "/" + playingMusic.getMusicId());
             }
@@ -380,7 +364,7 @@ public class MusicPlayControl implements MediaPlayer.OnPreparedListener, MediaPl
                     } else {
                         mMediaPlayer.seekToPause(0);
                     }
-                    sendBroadcast(IConstants.BroadcastActions.ACTION_UPDATE_MUSIC_PLAY_STATUS, true);
+                    new UpdateMusicPlayStatusEvent(true).post();
                 }
             } else {
                 if (!mMediaPlayer.isPlaying()) {
@@ -389,7 +373,7 @@ public class MusicPlayControl implements MediaPlayer.OnPreparedListener, MediaPl
                     } else {
                         mMediaPlayer.seekToPause(mCache.getPausePosition());
                     }
-                    sendBroadcast(IConstants.BroadcastActions.ACTION_UPDATE_MUSIC_PLAY_STATUS, true);
+                    new UpdateMusicPlayStatusEvent(true).post();
                 }
             }
             mProgressHandler.post(mProgressRunnable);
@@ -419,7 +403,7 @@ public class MusicPlayControl implements MediaPlayer.OnPreparedListener, MediaPl
             mMediaPlayer.pause();
             mProgressHandler.removeCallbacks(mProgressRunnable);
 
-            sendBroadcast(IConstants.BroadcastActions.ACTION_UPDATE_MUSIC_PLAY_STATUS, false);
+            new UpdateMusicPlayStatusEvent(false).post();
         }
 //        mAudioManager.abandonAudioFocus(this);
 //        try {
@@ -578,11 +562,12 @@ public class MusicPlayControl implements MediaPlayer.OnPreparedListener, MediaPl
     @Override
     public void onCompletion(MediaPlayer mediaPlayer) {
         Log.d(TAG, "onCompletion: ");
+        new MusicCompletedEvent().post();
         mCache.setPausePosition(0);
         if (IConstants.RepeatMode.REPEAT_ONE == mCache.getPlayMode()) {
             mMediaPlayer.start();
             mProgressHandler.post(mProgressRunnable);
-            sendBroadcast(IConstants.BroadcastActions.ACTION_MUSIC_PREPARED);
+            new MusicPreparedEvent().post();
         } else {
             next();
         }
@@ -591,6 +576,7 @@ public class MusicPlayControl implements MediaPlayer.OnPreparedListener, MediaPl
     @Override
     public boolean onError(MediaPlayer mediaPlayer, int what, int extra) {
         Log.i(TAG, "onError: what = " + what + ", extra=" + extra);
+        new MusicErrorEvent().post();
         return false;
     }
 
@@ -608,8 +594,7 @@ public class MusicPlayControl implements MediaPlayer.OnPreparedListener, MediaPl
             mMediaPlayer.start();
             setPlayStatus(true);
         }
-        Log.d(TAG, "onPrepared: >>>>");
-        sendBroadcast(IConstants.BroadcastActions.ACTION_MUSIC_PREPARED);
+        new MusicPreparedEvent().post();
     }
 
     @Override

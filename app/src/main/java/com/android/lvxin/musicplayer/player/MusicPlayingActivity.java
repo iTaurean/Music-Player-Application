@@ -10,9 +10,14 @@ import com.android.lvxin.musicplayer.BR;
 import com.android.lvxin.musicplayer.BaseToolBarActivity;
 import com.android.lvxin.musicplayer.R;
 import com.android.lvxin.musicplayer.data.MusicModel;
+import com.android.lvxin.musicplayer.event.MusicPreparedEvent;
 import com.android.lvxin.musicplayer.service.MusicPlayer;
 import com.android.lvxin.musicplayer.util.ActivityUtils;
 import com.android.lvxin.musicplayer.util.ViewModelHolder;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,8 +90,7 @@ public class MusicPlayingActivity extends BaseToolBarActivity implements MusicPl
     }
 
     @Override
-    public void onPrepared() {
-        super.onPrepared();
+    public void onPrepared(MusicPreparedEvent event) {
         Log.d(TAG, "onPrepared: ");
         mViewModel.notifyPropertyChanged(BR.playing);
     }

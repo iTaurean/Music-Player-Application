@@ -24,13 +24,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.lvxin.musicplayer.event.MusicCompletedEvent;
+import com.android.lvxin.musicplayer.event.MusicErrorEvent;
+import com.android.lvxin.musicplayer.event.MusicPreparedEvent;
+import com.android.lvxin.musicplayer.event.UpdateMusicInfoEvent;
+import com.android.lvxin.musicplayer.event.UpdateMusicPlayStatusEvent;
+import com.android.lvxin.musicplayer.event.UpdateMusicProgressEvent;
 import com.android.lvxin.musicplayer.receiver.PlayStatusReceiver;
 import com.android.lvxin.musicplayer.service.IMusicAidlInterface;
-import com.android.lvxin.musicplayer.service.MusicPlayCallback;
 import com.android.lvxin.musicplayer.service.MusicPlayer;
 import com.android.lvxin.musicplayer.util.ActivityStack;
 import com.android.lvxin.musicplayer.util.DeviceUtils;
 import com.android.lvxin.musicplayer.util.ViewUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * @ClassName: BaseToolBarActivity
@@ -38,7 +47,7 @@ import com.android.lvxin.musicplayer.util.ViewUtils;
  * @Author: lvxin
  * @Date: 2017-07-17 09:30:41
  */
-public class BaseToolBarActivity extends AppCompatActivity implements View.OnClickListener, ServiceConnection, MusicPlayCallback {
+public class BaseToolBarActivity extends AppCompatActivity implements View.OnClickListener, ServiceConnection {
     private static final String TAG = "BaseToolBarActivity";
 
     protected Toolbar mToolbar;
@@ -48,16 +57,15 @@ public class BaseToolBarActivity extends AppCompatActivity implements View.OnCli
     protected FrameLayout bottomLayout; // 底部控制条
     private ViewGroup rootLayout;
     private boolean isCollapsingToolbar = false;
-    private PlayStatusReceiver mPlayStatusReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityStack.getIns().push(this);
         MusicPlayer.bindService(this, this);
-        mPlayStatusReceiver = PlayStatusReceiver.getInstance();
-        mPlayStatusReceiver.setPlayStatusCallback(this);
-        registerReceiver(mPlayStatusReceiver, PlayStatusReceiver.getIntentFilter());
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
 
         if (!isCollapsingToolbar) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -311,11 +319,6 @@ public class BaseToolBarActivity extends AppCompatActivity implements View.OnCli
     protected void onDestroy() {
         super.onDestroy();
         ActivityStack.getIns().popup(this);
-        try {
-            unregisterReceiver(mPlayStatusReceiver);
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -342,33 +345,34 @@ public class BaseToolBarActivity extends AppCompatActivity implements View.OnCli
 
     }
 
-    @Override
-    public void onUpdateMusicInfo() {
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUpdateMusicInfo(UpdateMusicInfoEvent event) {
         Log.d(TAG, "onUpdateMusicInfo: ");
     }
 
-    @Override
-    public void onPrepared() {
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onPrepared(MusicPreparedEvent event) {
         Log.d(TAG, "onPrepared: ");
     }
 
-    @Override
-    public void onCompletion() {
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onCompletion(MusicCompletedEvent event) {
         Log.d(TAG, "onCompletion: ");
     }
 
-    @Override
-    public void onError() {
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onError(MusicErrorEvent event) {
         Log.d(TAG, "onError: ");
     }
 
-    @Override
-    public void onUpdateProgress() {
-        Log.d(TAG, "onUpdateProgress: ");
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUpdateProgress(UpdateMusicProgressEvent event) {
+//        Log.d(TAG, "onUpdateProgress: ");
     }
 
-    @Override
-    public void onUpdatePlayStatus(boolean isPlaying) {
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUpdatePlayStatus(UpdateMusicPlayStatusEvent event) {
         Log.d(TAG, "onUpdatePlayStatus: ");
     }
 }

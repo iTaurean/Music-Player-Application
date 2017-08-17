@@ -25,6 +25,8 @@ public class MusicPlayingFragment extends Fragment {
 
     private List<MusicModel> mPlayList;
 
+    protected ArrayList<Fragment> mFragments = new ArrayList<>();
+
 
     public MusicPlayingFragment() {
         // Required empty public constructor
@@ -51,8 +53,7 @@ public class MusicPlayingFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.music_playing_fragment, container, false);
         mViewBinding = MusicPlayingFragmentBinding.bind(root);
         mViewBinding.setView(this);

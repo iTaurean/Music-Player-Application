@@ -1,0 +1,22 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.android.lvxin.musicplayer.player.MusicPlayingListFragment">
+
+    <data>
+
+        <variable
+            name="view"
+            type="com.android.lvxin.musicplayer.player.MusicPlayingListFragment" />
+
+        <variable
+            name="viewModel"
+            type="com.android.lvxin.musicplayer.player.MusicPlayingListViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    </LinearLayout>
+</layout>

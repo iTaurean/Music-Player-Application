@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.lvxin.musicplayer.BR;
 import com.android.lvxin.musicplayer.R;
 import com.android.lvxin.musicplayer.databinding.HomeFragmentBinding;
 
