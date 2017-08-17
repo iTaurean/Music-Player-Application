@@ -53,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="@{obj.musicName}"
-                    android:textColor="@color/text_color_111111"
+                    android:textColor="@color/color_111111"
                     android:textSize="16sp" />
 
                 <TextView
@@ -62,14 +62,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="@{obj.artist + ` - ` + obj.albumName}"
-                    android:textColor="@color/text_color_999999"
+                    android:textColor="@color/color_999999"
                     android:textSize="12sp" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/divider_d8dfed" />
+                android:background="@color/color_d8dfed" />
         </LinearLayout>
     </LinearLayout>
 

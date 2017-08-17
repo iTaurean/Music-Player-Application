@@ -6,7 +6,7 @@ package com.android.lvxin.musicplayer.musics;
  * @Author: lvxin
  * @Date: 2017/7/6 15:24
  */
-interface MusicItemNavigation {
+public interface MusicItemNavigation {
 
     void openMusicPlayPage();
 }

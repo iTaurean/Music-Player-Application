@@ -1,9 +1,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.android.lvxin.musicplayer.player.MusicPlayingListFragment">
 
     <data>
-
+        <import type="android.view.View" />
         <variable
             name="view"
             type="com.android.lvxin.musicplayer.player.MusicPlayingListFragment" />
@@ -13,10 +14,30 @@
             type="com.android.lvxin.musicplayer.player.MusicPlayingListViewModel" />
     </data>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-    </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/play_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{viewModel.empty ? View.GONE : View.VISIBLE}"
+            app:play_list_items="@{viewModel.items}" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{viewModel.empty ? View.VISIBLE : View.GONE}">
+
+            <TextView
+                android:id="@+id/txt_no_musics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/play_list_is_empty" />
+        </LinearLayout>
+    </FrameLayout>
 </layout>

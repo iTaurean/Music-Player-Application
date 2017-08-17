@@ -22,14 +22,15 @@ public class MusicItemViewModel extends BaseObservable {
     public final ObservableField<String> artist = new ObservableField<>();
 
     private final ObservableField<MusicModel> mMusicObservable = new ObservableField<>();
-
-    private final MusicsRepository mMusicsRepository;
-
     private final Context mContext;
-
+    private MusicsRepository mMusicsRepository;
     private boolean mIsDataLoading;
 
     private WeakReference<MusicItemNavigation> mNavigation;
+
+    public MusicItemViewModel(Context context) {
+        this(context, null);
+    }
 
     public MusicItemViewModel(Context context, MusicsRepository musicsRepository) {
         mContext = context.getApplicationContext();

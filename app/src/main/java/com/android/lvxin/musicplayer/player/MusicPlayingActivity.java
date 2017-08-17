@@ -11,6 +11,7 @@ import com.android.lvxin.musicplayer.BaseToolBarActivity;
 import com.android.lvxin.musicplayer.R;
 import com.android.lvxin.musicplayer.data.MusicModel;
 import com.android.lvxin.musicplayer.event.MusicPreparedEvent;
+import com.android.lvxin.musicplayer.musics.MusicItemNavigation;
 import com.android.lvxin.musicplayer.service.MusicPlayer;
 import com.android.lvxin.musicplayer.util.ActivityUtils;
 import com.android.lvxin.musicplayer.util.ViewModelHolder;
@@ -22,7 +23,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MusicPlayingActivity extends BaseToolBarActivity implements MusicPlayingNavigation {
+public class MusicPlayingActivity extends BaseToolBarActivity implements MusicPlayingNavigation, MusicItemNavigation{
 
     private static final String TAG = "MusicPlayingActivity";
 
@@ -93,5 +94,10 @@ public class MusicPlayingActivity extends BaseToolBarActivity implements MusicPl
     public void onPrepared(MusicPreparedEvent event) {
         Log.d(TAG, "onPrepared: ");
         mViewModel.notifyPropertyChanged(BR.playing);
+    }
+
+    @Override
+    public void openMusicPlayPage() {
+
     }
 }

@@ -33,6 +33,7 @@ public class PlayingViewPagerBindings {
         playingInfoFragment.setViewModel(findOrCreatePlayingInfoViewModel(context, fragmentManager));
 
         MusicPlayingListFragment musicPlayingListFragment = MusicPlayingListFragment.newInstance();
+        musicPlayingListFragment.setViewModel(findOrCreatePlayListViewModel(context, fragmentManager));
 
         List<Fragment> fragments = new ArrayList<>(2);
         fragments.add(playingInfoFragment);
@@ -66,6 +67,17 @@ public class PlayingViewPagerBindings {
             MusicPlayingInfoViewModel viewModel = new MusicPlayingInfoViewModel(context);
             retainedViewModel = ViewModelHolder.createContainer(viewModel);
             ActivityUtils.addFragmentToActivity(fm, retainedViewModel, MUSIC_PLAYING_INFO_TAG);
+        }
+
+        return retainedViewModel.getViewModel();
+    }
+
+    private static MusicPlayingListViewModel findOrCreatePlayListViewModel(Context context, FragmentManager fm) {
+        ViewModelHolder<MusicPlayingListViewModel> retainedViewModel = (ViewModelHolder<MusicPlayingListViewModel>) fm.findFragmentByTag(MUSIC_PLAYING_LIST_TAG);
+        if (null == retainedViewModel || null == retainedViewModel.getViewModel()) {
+            MusicPlayingListViewModel viewModel = new MusicPlayingListViewModel(context);
+            retainedViewModel = ViewModelHolder.createContainer(viewModel);
+            ActivityUtils.addFragmentToActivity(fm, retainedViewModel, MUSIC_PLAYING_LIST_TAG);
         }
 
         return retainedViewModel.getViewModel();

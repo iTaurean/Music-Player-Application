@@ -17,6 +17,8 @@
 
     <string name="play_time_start">00:00</string>
 
+    <string name="play_list_is_empty">播放列表为空</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

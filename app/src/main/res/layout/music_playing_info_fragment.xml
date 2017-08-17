@@ -74,7 +74,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@{viewModel.music.get().musicName}"
-                android:textColor="@color/text_color_111111"
+                android:textColor="@color/color_111111"
                 android:textSize="23sp" />
 
             <TextView
@@ -84,7 +84,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@{viewModel.music.get().artist}"
-                android:textColor="@color/text_color_999999"
+                android:textColor="@color/color_999999"
                 android:textSize="11sp" />
         </LinearLayout>
     </LinearLayout>
